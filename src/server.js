@@ -15,7 +15,7 @@ app.set('views', path.join(__dirname, 'views')); // le dice a express donde esta
 app.engine('.hbs', engine({
   defaultLayout: 'main',
   layoutsDir: path.join(app.get('views'), 'layouts'), 
-  partialsDir: path.join(app.get('views'), 'patials'),
+  partialsDir: path.join(app.get('views'), 'partials'),
   extname: '.hbs' // le dice a express que las vistas son .hbs
   }));
 

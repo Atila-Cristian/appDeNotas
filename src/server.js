@@ -30,9 +30,7 @@ app.use(express.urlencoded({extended: false})); // convierte los datos que llega
 
 // routes 
 
-app.get('/', (req, res) => {
-  res.render('index')
-});
+app.use(require('./routes/index.routes')); 
 
 // static files 
 

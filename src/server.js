@@ -30,7 +30,8 @@ app.use(express.urlencoded({extended: false})); // convierte los datos que llega
 
 // routes 
 
-app.use(require('./routes/index.routes')); 
+app.use(require('./routes/index.routes'));
+app.use(require('./routes/note.routes'));  
 
 // static files 
 

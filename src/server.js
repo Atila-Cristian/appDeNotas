@@ -1,6 +1,8 @@
 const express = require('express');
 const {engine} = require('express-handlebars'); // modulo de express para manejar vistas
 const path = require('path'); // modulo de nodejs para manejar rutas 
+const morgan = require('morgan'); // modulo de nodejs para ver peticiones http
+
 // initializations
 
 const app = express(); 
@@ -24,6 +26,8 @@ app.set('view engine', '.hbs') // le dice a express que el motor de vistas es .h
 // midelewares
 
 app.use(express.urlencoded({extended: false})); // convierte los datos que llegan en json
+
+app.use(morgan('dev'));
 
 // global variables
 

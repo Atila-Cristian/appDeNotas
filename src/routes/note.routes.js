@@ -12,7 +12,7 @@ const  { renderNoteForm,
 // nota nueva
 router.get('/notes/add', renderNoteForm);
 
-router.post('/notes/add', createNewNote);
+router.post('/notes/new-note', createNewNote);
 
 //todas las notas
 router.get('/notes', renderNotes);

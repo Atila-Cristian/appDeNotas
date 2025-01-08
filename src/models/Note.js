@@ -1,8 +1,8 @@
 // en este archivo se define el modelo de las notas
 
-const {schema, model} = require('mongoose');
+const {Schema, model} = require('mongoose');
 
-const noteSchema = new schema({
+const noteSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -17,4 +17,4 @@ const noteSchema = new schema({
   timestamps: true // añade la fecha de creacion y actualizacion
 })
 
-module.export = model('note', noteSchema);
+module.exports = model('note', noteSchema);

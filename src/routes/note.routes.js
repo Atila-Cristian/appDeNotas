@@ -12,7 +12,8 @@ const  { renderNoteForm,
 // nota nueva
 router.get('/notes/add', renderNoteForm);
 
-router.post('/notes/new-note', createNewNote);
+
+router.post('/note/new-note', createNewNote); //resolver el herror con la rutas note -- notes
 
 //todas las notas
 router.get('/notes', renderNotes);

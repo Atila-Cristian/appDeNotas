@@ -9,11 +9,11 @@ const  { renderNoteForm,
           deleteNote 
         } = require('../controllers/note.controller');
 
-// nota nueva
+//formulario para crear una nota nueva
 router.get('/notes/add', renderNoteForm);
 
-
-router.post('/notes/new-note', createNewNote); //resolver el herror con la rutas note -- notes
+//funcion de guardado de notas creadas
+router.post('/notes/new-note', createNewNote);
 
 //todas las notas 
 router.get('/notes', renderNotes);

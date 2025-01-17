@@ -3,7 +3,9 @@ const {engine} = require('express-handlebars'); // modulo de express para maneja
 const path = require('path'); // modulo de nodejs para manejar rutas 
 const morgan = require('morgan'); // modulo de nodejs para ver peticiones http
 const methodOverride = require('method-override'); // modulo de nodejs para usar metodos http como put y delete
-
+const flash = require('connect-flash');
+const session = require('express-session');
+ 
 // initializations
 
 const app = express(); 
@@ -32,8 +34,20 @@ app.use(morgan('dev'));
 
 app.use(methodOverride('_method'));
 
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(flash());
+
 // global variables
 
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  next();
+})
 
 // routes 
 

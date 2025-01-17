@@ -2,6 +2,7 @@ const express = require('express');
 const {engine} = require('express-handlebars'); // modulo de express para manejar vistas
 const path = require('path'); // modulo de nodejs para manejar rutas 
 const morgan = require('morgan'); // modulo de nodejs para ver peticiones http
+const methodOverride = require('method-override'); // modulo de nodejs para usar metodos http como put y delete
 
 // initializations
 
@@ -28,6 +29,8 @@ app.set('view engine', '.hbs') // le dice a express que el motor de vistas es .h
 app.use(express.urlencoded({extended: false})); // convierte los datos que llegan en json
 
 app.use(morgan('dev'));
+
+app.use(methodOverride('_method'));
 
 // global variables
 

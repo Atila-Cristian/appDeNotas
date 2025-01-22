@@ -1,6 +1,8 @@
 const usersCtrl = {};
 
-const User = require('../models/User') // inporta el modelo de los usuarios
+const passport = require('passport');
+
+const User = require('../models/User'); // inporta el modelo de los usuarios
 
 usersCtrl.renderSignUpForm = (req, res) => {
   res.render('users/signup')
@@ -19,7 +21,7 @@ usersCtrl.signup = async (req, res) =>{
       errors.push({text: 'password must be at least 4 characters.'})
   }
   if (errors.length > 0 ){
-      res.render('users/signup', { // devolver al formulario lo siguiente 
+     return res.render('users/signup', { // devolver al formulario lo siguiente 
         errors,
         name,
         email
@@ -32,27 +34,32 @@ usersCtrl.signup = async (req, res) =>{
 
  if  (emailUser) {
     req.flash('error_msg',  'the email is already in use');
-    res.redirect('/users/signin');
+   return res.redirect('/users/signin');
  }else {
   const newUser = new User({name, email, password});
   newUser.password = await newUser.encryptPassword(password)
   await newUser.save();
-  req.flash('succes_msg', 'you are registered')
-  res.redirect('users/signin')
+  req.flash('success_msg', 'you are registered')
+  return res.redirect('users/signin');
  }
 
 }
 
 usersCtrl.renderSignInForm = (req, res) => {
-  res.render('users/signin')
+  res.render('users/signin');
 }
 
-usersCtrl.signin = (req, res) => {
-  res.send('signin')
-}
+usersCtrl.signin = passport.authenticate('local', {
+  failureRedirect: '/users/signin',
+  successRedirect: '/notes',
+  failureFlash: true
+});
+
 
 usersCtrl.logout = (req, res) => {
-  res.send('logout')
+  req.logout();
+  req.flash('seccess.msg', 'You are logged out now');
+  res.redirect('/users/signin');
 }
 
 

@@ -1,38 +1,42 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy
+const LocalStrategy = require('passport-local').Strategy;
 
-const User = require('../models/User')
+const User = require('../models/User');
 
-//funcion para poder logear al usuario
+// Función para logear al usuario
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
-
 }, async (email, password, done) => {
-
-  //validacion del maill
- const user = await User.findOne({email})
-  if(!user) {
-   return done(null, false, { message: 'Usuario no registrado'})
+  // Validación del email
+  const user = await User.findOne({ email });
+  if (!user) {
+    return done(null, false, { message: 'Usuario no registrado' });
   } else {
-    //validacion de la contraseña
-    const match = await user.matchPassword(password)
-    if(match){
+    // Validación de la contraseña
+    const match = await user.matchPassword(password);
+    if (match) {
       return done(null, user);
     } else {
-      return done(null, false, { message: 'Contraseña incorrecta' })
+      return done(null, false, { message: 'Contraseña incorrecta' });
     }
-
   }
-  
 }));
 
+// Serialización del usuario
 passport.serializeUser((user, done) => {
   done(null, user.id);
-})
+});
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-      done(err, user);
-  })
+// Deserialización del usuario
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id); // Usando async/await
+    if (!user) {
+      return done(new Error('User not found'), null); // Manejo si no se encuentra el usuario
+    }
+    done(null, user);
+  } catch (err) {
+    done(err, null); // Si ocurre un error en la consulta
+  }
 });

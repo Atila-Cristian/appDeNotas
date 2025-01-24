@@ -13,6 +13,11 @@ const noteSchema = new Schema({
     required: true
   },
 
+  user:{
+    type: String,
+    require: true
+  },
+
 }, {
   timestamps: true // añade la fecha de creacion y actualizacion
 })

@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(rgb(0, 162, 255), rgb(216, 192, 255));
+  background: linear-gradient(rgb(0, 162, 255), rgb(216, 192, 255)) !important;
   min-height: 100vh;
   margin:0;
 }
